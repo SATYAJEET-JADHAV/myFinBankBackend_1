@@ -1,0 +1,22 @@
+<nav class="navbar">
+  <div class="nav-container">
+    <a class="brand" routerLink="/login"><span class="brand-icon"><i class="bi bi-bank2"></i></span><span><strong>MyFinBank</strong><small>Vehicle Loan Portal</small></span></a>
+    <button class="menu-btn" type="button" (click)="toggleMenu()"><i class="bi" [ngClass]="isMenuOpen ? 'bi-x-lg' : 'bi-list'"></i></button>
+    <div class="nav-links" [class.open]="isMenuOpen">
+      <ng-container *ngIf="!authService.isLoggedIn(); else loggedInMenu">
+        <a routerLink="/login" routerLinkActive="active">Login</a>
+        <a routerLink="/register" routerLinkActive="active">Register</a>
+      </ng-container>
+      <ng-template #loggedInMenu>
+        <a *ngIf="role === 'CUSTOMER'" routerLink="/customer/dashboard" routerLinkActive="active">Dashboard</a>
+        <a *ngIf="role === 'CUSTOMER'" routerLink="/customer/apply-loan" routerLinkActive="active">Apply Loan</a>
+        <a *ngIf="role === 'CUSTOMER'" routerLink="/customer/emi-calculator" routerLinkActive="active">EMI Calculator</a>
+        <a *ngIf="role === 'CUSTOMER'" routerLink="/customer/loan-status" routerLinkActive="active">Loan Status</a>
+        <a *ngIf="role === 'OFFICER'" routerLink="/officer/dashboard" routerLinkActive="active">Officer Dashboard</a>
+        <a *ngIf="role === 'MANAGER'" routerLink="/manager/dashboard" routerLinkActive="active">Manager Dashboard</a>
+        <div class="user-chip"><i class="bi bi-person-circle"></i><span>{{ fullName }}</span><small>{{ role }}</small></div>
+        <button class="logout-btn" type="button" (click)="logout()"><i class="bi bi-box-arrow-right"></i>Logout</button>
+      </ng-template>
+    </div>
+  </div>
+</nav>
